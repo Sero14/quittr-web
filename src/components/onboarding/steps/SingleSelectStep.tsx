@@ -19,7 +19,6 @@ export default function SingleSelectStep({
   subtitle,
   field,
   options,
-  skippable = true,
   onNext,
 }: SingleSelectStepProps) {
   const value = useQuizStore((s) => s[field] as string | null);
@@ -37,7 +36,6 @@ export default function SingleSelectStep({
     <StepShell
       title={title}
       subtitle={subtitle}
-      onSkip={skippable ? onNext : undefined}
       showContinue={false}
     >
       <div className="flex flex-col gap-3">

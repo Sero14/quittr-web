@@ -19,10 +19,8 @@ export default function PillOption({
     <motion.button
       type="button"
       onClick={onClick}
-      whileTap={{ scale: 0.96 }}
-      animate={selected ? { scale: [1, 1.03, 1] } : {}}
-      transition={{ duration: 0.2 }}
-      className={`flex items-center justify-center gap-3 rounded-full border px-6 py-3.5 text-[15px] font-medium transition-all cursor-pointer w-full ${
+      whileTap={{ scale: 0.97 }}
+      className={`flex h-full min-h-[52px] w-full items-center justify-center gap-2 rounded-xl border px-4 py-3.5 text-base font-medium transition-all duration-200 cursor-pointer text-center ${
         selected
           ? "border-accent bg-accent text-white shadow-[0_0_16px_rgba(124,58,237,0.35)]"
           : "border-border bg-transparent text-white hover:border-muted"

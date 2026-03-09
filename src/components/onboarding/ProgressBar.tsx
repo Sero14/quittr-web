@@ -14,7 +14,7 @@ export default function ProgressBar({
   const segments = [1, 2, 3] as const;
 
   return (
-    <div className="flex w-full gap-1.5 px-6 pt-4">
+    <div className="flex w-full gap-1.5 px-6 pt-4 pb-2">
       {segments.map((seg) => {
         let fill = 0;
         if (seg < currentSegment) fill = 1;

@@ -12,9 +12,11 @@ export type QuizState = {
   stressTrigger: string | null;
   boredomTrigger: string | null;
   financialSpend: string | null;
+  confidence: string | null;
   name: string;
   age: string;
   symptoms: string[];
+  triggers: string[];
   goals: string[];
   email: string;
   score: number | null;
@@ -23,7 +25,7 @@ export type QuizState = {
 type QuizActions = {
   setField: <K extends keyof QuizState>(key: K, value: QuizState[K]) => void;
   toggleArrayItem: (
-    key: "symptoms" | "goals",
+    key: "symptoms" | "triggers" | "goals",
     value: string,
   ) => void;
   computeScore: () => void;
@@ -41,9 +43,11 @@ const initialState: QuizState = {
   stressTrigger: null,
   boredomTrigger: null,
   financialSpend: null,
+  confidence: null,
   name: "",
   age: "",
   symptoms: [],
+  triggers: [],
   goals: [],
   email: "",
   score: null,

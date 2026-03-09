@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import StarField from "@/components/ui/StarField";
 import type { StepProps } from "../StepShell";
 import { useQuizStore } from "@/lib/quiz-state";
 
@@ -50,12 +51,14 @@ export default function CalculatingScreen({ onNext }: StepProps) {
   const strokeDashoffset = CIRCLE_CIRCUMFERENCE * (1 - progress);
 
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center bg-gradient-to-b from-accent-dark to-accent px-6">
+    <div className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#0a0a2e] via-[#1a1a5c] to-[#0a0a2e] px-6">
+      <StarField />
+
       <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="flex flex-col items-center gap-8"
+        className="relative z-10 flex flex-col items-center gap-8"
       >
         <div className="relative flex h-36 w-36 items-center justify-center">
           <svg
@@ -91,12 +94,12 @@ export default function CalculatingScreen({ onNext }: StepProps) {
         </div>
 
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-white">Calculating</h2>
+          <h2 className="text-3xl font-black text-white">Calculating</h2>
           <motion.p
             key={messageIndex}
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3 }}
             className="mt-2 text-white/70"
           >
             {STATUS_MESSAGES[messageIndex]}

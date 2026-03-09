@@ -1,104 +1,102 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Button from "@/components/ui/Button";
+import StarField from "@/components/ui/StarField";
 import type { StepProps } from "../StepShell";
 
-function StarField() {
-  const stars = Array.from({ length: 60 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 2 + 0.5,
-    delay: Math.random() * 3,
-    duration: Math.random() * 2 + 2,
-  }));
+const SUBTITLE = "Embrace this pause.\nReflect before you relapse.";
 
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {stars.map((star) => (
-        <motion.div
-          key={star.id}
-          className="absolute rounded-full bg-white"
-          style={{
-            left: `${star.x}%`,
-            top: `${star.y}%`,
-            width: star.size,
-            height: star.size,
-          }}
-          animate={{ opacity: [0.2, 0.8, 0.2] }}
-          transition={{
-            duration: star.duration,
-            delay: star.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-    </div>
-  );
+function useTypewriter(text: string, startDelay = 800, speed = 45) {
+  const [displayed, setDisplayed] = useState("");
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    setDisplayed("");
+    setDone(false);
+    let i = 0;
+    const start = setTimeout(() => {
+      const interval = setInterval(() => {
+        i++;
+        setDisplayed(text.slice(0, i));
+        if (i >= text.length) {
+          clearInterval(interval);
+          setDone(true);
+        }
+      }, speed);
+      return () => clearInterval(interval);
+    }, startDelay);
+    return () => clearTimeout(start);
+  }, [text, startDelay, speed]);
+
+  return { displayed, done };
 }
 
 export default function WelcomeStep({ onNext }: StepProps) {
+  const { displayed, done } = useTypewriter(SUBTITLE);
+
   return (
-    <div className="relative flex min-h-dvh flex-col items-center justify-center px-6 text-center bg-gradient-to-b from-background via-[#0d1020] to-background overflow-hidden">
+    <div className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-black px-6 text-center">
+      {/* Animated blob background */}
+      <div className="pointer-events-none absolute inset-0">
+        <motion.div
+          className="absolute left-[-20%] top-[-10%] h-[70%] w-[70%] rounded-full bg-[#2d1b69] opacity-60 blur-[80px]"
+          animate={{ x: [0, 30, -20, 0], y: [0, -20, 30, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute right-[-15%] top-[20%] h-[60%] w-[55%] rounded-full bg-[#1a0a5e] opacity-50 blur-[100px]"
+          animate={{ x: [0, -25, 15, 0], y: [0, 25, -15, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        <motion.div
+          className="absolute bottom-[-10%] left-[10%] h-[50%] w-[60%] rounded-full bg-[#3b1f8c] opacity-40 blur-[90px]"
+          animate={{ x: [0, 20, -30, 0], y: [0, -30, 10, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        />
+      </div>
+
       <StarField />
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-10 flex flex-col items-center gap-6"
-      >
+      <div className="relative z-10 flex flex-col items-center gap-8">
+        {/* Logo */}
         <motion.h1
-          className="text-5xl font-black tracking-tight md:text-6xl bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent"
-          initial={{ letterSpacing: "0.1em" }}
-          animate={{ letterSpacing: "0.02em" }}
-          transition={{ duration: 1, delay: 0.3 }}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+          className="text-5xl font-black tracking-tight text-white md:text-6xl"
         >
           QUITTR
         </motion.h1>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="mt-2"
-        >
-          <h2 className="text-2xl font-bold leading-tight md:text-3xl">
-            Welcome!
-          </h2>
-          <p className="mt-3 text-lg text-muted leading-relaxed max-w-xs">
-            Let&apos;s start by finding out if you have a problem with porn
-          </p>
-        </motion.div>
+        {/* Typewriter subtitle — fixed height so layout never shifts */}
+        <div className="h-14 max-w-xs text-lg font-medium leading-snug text-white/80">
+          {displayed.split("\n").map((line, i) => (
+            <p key={i}>{line}</p>
+          ))}
+        </div>
 
+        {/* Stars + CTA — always in the DOM, animate opacity so layout is stable */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
-          className="mt-2 flex items-center gap-1 text-yellow-400 text-xl"
+          animate={{ opacity: done ? 1 : 0 }}
+          transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+          className="flex flex-col items-center gap-5"
+          style={{ pointerEvents: done ? "auto" : "none" }}
         >
-          {"★★★★★"}
-        </motion.div>
+          <div className="text-xl text-yellow-400">★★★★★</div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.5 }}
-          className="mt-4 flex flex-col items-center gap-4"
-        >
           <Button onClick={onNext} className="px-10 text-lg">
-            Start Quiz →
+            Get Started
           </Button>
           <button
             type="button"
-            className="text-sm text-muted hover:text-white transition-colors cursor-pointer"
+            className="cursor-pointer text-sm text-white/40 transition-colors hover:text-white/70"
           >
             Already have an account?
           </button>
         </motion.div>
-      </motion.div>
+      </div>
     </div>
   );
 }

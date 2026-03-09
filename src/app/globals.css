@@ -13,11 +13,17 @@
   --font-display: var(--font-inter);
 }
 
+html,
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
-  min-height: 100dvh;
+  height: 100dvh;
 }
 
 ::selection {
@@ -50,3 +56,9 @@ input::placeholder {
   scrollbar-width: thin;
   scrollbar-color: var(--color-border) transparent;
 }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.08; }
+  50% { opacity: 0.45; }
+}
+

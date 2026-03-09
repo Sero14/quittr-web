@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import StarField from "@/components/ui/StarField";
 import type { StepProps } from "../StepShell";
 
 const MESSAGES = [
@@ -27,11 +28,14 @@ export default function BuildingPlanStep({ onNext }: StepProps) {
   }, [onNext]);
 
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center bg-gradient-to-b from-accent-dark to-accent px-8 text-center">
+    <div className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#0f0520] via-[#2d1b69] to-[#1a0a3a] px-8 text-center">
+      <StarField />
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="flex flex-col items-center gap-6"
+        transition={{ duration: 0.5 }}
+        className="relative z-10 flex flex-col items-center gap-6"
       >
         <motion.div
           animate={{ rotate: 360 }}
@@ -39,14 +43,15 @@ export default function BuildingPlanStep({ onNext }: StepProps) {
           className="h-12 w-12 rounded-full border-4 border-white/20 border-t-white"
         />
 
-        <h2 className="text-2xl font-bold text-white">
+        <h2 className="text-3xl font-black text-white md:text-4xl">
           Sit tight, we&apos;re building your custom plan
         </h2>
 
         <motion.p
           key={msgIndex}
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
           className="text-white/60"
         >
           {MESSAGES[msgIndex]}

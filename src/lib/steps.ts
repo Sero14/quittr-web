@@ -14,13 +14,17 @@ export const STEPS: StepDefinition[] = [
   { id: "gender", segment: 1, type: "question", skippable: true, autoAdvance: true },
   { id: "attribution", segment: 1, type: "question", skippable: true, autoAdvance: true },
   { id: "frequency", segment: 1, type: "question", skippable: true, autoAdvance: true },
+  { id: "statFrequency", segment: 1, type: "interstitial" },
   { id: "firstExposureAge", segment: 1, type: "question", skippable: true, autoAdvance: true },
   { id: "escalation", segment: 1, type: "question", skippable: true, autoAdvance: true },
   { id: "arousalDependency", segment: 1, type: "question", skippable: true, autoAdvance: true },
   { id: "emotionalCoping", segment: 1, type: "question", skippable: true, autoAdvance: true },
+  { id: "statCoping", segment: 1, type: "interstitial" },
   { id: "stressTrigger", segment: 1, type: "question", skippable: true, autoAdvance: true },
   { id: "boredomTrigger", segment: 1, type: "question", skippable: true, autoAdvance: true },
   { id: "financialSpend", segment: 1, type: "question", skippable: true, autoAdvance: true },
+  { id: "confidence", segment: 1, type: "question", skippable: true, autoAdvance: true },
+  { id: "confidenceImage", segment: 1, type: "interstitial" },
   { id: "nameAge", segment: 1, type: "input" },
 
   // --- INTERSTITIAL: Calculating ---
@@ -34,6 +38,8 @@ export const STEPS: StepDefinition[] = [
   { id: "eduRecovery", segment: 2, type: "interstitial" },
   { id: "testimonial2", segment: 2, type: "interstitial" },
   { id: "symptoms", segment: 2, type: "question" },
+  { id: "triggersIntro", segment: 2, type: "interstitial" },
+  { id: "triggers", segment: 2, type: "custom" },
 
   // --- SEGMENT 3: Conversion ---
   { id: "goals", segment: 3, type: "question" },
@@ -42,6 +48,7 @@ export const STEPS: StepDefinition[] = [
   { id: "testimonials", segment: 3, type: "custom" },
   { id: "buildingPlan", segment: 3, type: "interstitial" },
   { id: "planReveal", segment: 3, type: "custom" },
+  { id: "screenshotPrompt", segment: 3, type: "interstitial" },
   { id: "emailVerification", segment: 3, type: "input" },
   { id: "paywall", segment: 3, type: "custom" },
 ];

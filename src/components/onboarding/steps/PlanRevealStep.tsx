@@ -21,55 +21,38 @@ export default function PlanRevealStep({ onNext }: StepProps) {
   const quitDate = getQuitDate();
 
   return (
-    <StepShell onContinue={onNext} continueLabel="Continue">
+    <StepShell gradient="purple" onContinue={onNext} continueLabel="Continue">
       <div className="flex flex-col items-center text-center">
         <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: "spring", delay: 0.2 }}
-          className="mb-4 text-4xl"
-        >
-          ✅
-        </motion.div>
-
-        <motion.h2
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-2xl font-black"
+          transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+          className="flex flex-col items-center"
         >
-          {name ? `${name}, we've` : "We've"} made you a custom plan.
-        </motion.h2>
+          <div className="mb-4 text-5xl">✅</div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="mt-2 text-muted"
-        >
-          You will quit porn by:
-        </motion.p>
+          <h2 className="text-3xl font-black text-white md:text-4xl">
+            {name ? `${name}, we've` : "We've"} made you a custom plan.
+          </h2>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.6 }}
-          className="mt-4 rounded-full border-2 border-white px-8 py-3 font-bold text-lg"
-        >
-          {quitDate}
+          <p className="mt-3 text-white/60">You will quit porn by:</p>
+
+          <div className="mt-4 rounded-full border-2 border-white/40 px-8 py-3 text-lg font-bold text-white">
+            {quitDate}
+          </div>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
           className="mt-8"
         >
-          <div className="text-2xl mb-1">{"★★★★★"}</div>
-          <p className="text-lg font-bold mt-2">
+          <div className="mb-1 text-2xl text-yellow-400">★★★★★</div>
+          <p className="mt-2 text-lg font-bold text-white">
             Become the best of yourself with QUITTR
           </p>
-          <p className="text-sm text-muted mt-1">
+          <p className="mt-1 text-sm text-white/50">
             Stronger. Healthier. Happier.
           </p>
         </motion.div>
@@ -77,13 +60,13 @@ export default function PlanRevealStep({ onNext }: StepProps) {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
           className="mt-6 flex flex-wrap justify-center gap-2"
         >
           {BENEFITS.map((b) => (
             <span
               key={b}
-              className="rounded-full bg-accent/20 border border-accent/40 px-3 py-1.5 text-xs font-medium text-accent-light"
+              className="rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-medium text-white/80"
             >
               {b}
             </span>

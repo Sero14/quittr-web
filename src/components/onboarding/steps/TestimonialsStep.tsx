@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import StepShell from "../StepShell";
-import Card from "@/components/ui/Card";
 import type { StepProps } from "../StepShell";
 
 const TESTIMONIALS = [
@@ -28,46 +27,49 @@ const TESTIMONIALS = [
 
 function Stars({ count }: { count: number }) {
   return (
-    <span className="text-yellow-400 text-sm">
-      {"★".repeat(count)}
-    </span>
+    <span className="text-sm text-yellow-400">{"★".repeat(count)}</span>
   );
 }
 
 export default function TestimonialsStep({ onNext }: StepProps) {
   return (
-    <StepShell onContinue={onNext} continueLabel="Continue">
+    <StepShell gradient="purple" onContinue={onNext} continueLabel="Continue">
       <div className="flex flex-col items-center">
-        <div className="text-center mb-6">
-          <div className="text-3xl mb-1">{"★★★★★"}</div>
-          <p className="text-sm text-muted">
+        <div className="mb-6 text-center">
+          <div className="mb-1 text-3xl text-yellow-400">★★★★★</div>
+          <p className="text-sm text-white/60">
             This app was designed for people like you.
           </p>
-          <p className="text-xs text-muted mt-1">+ 1,000,000 people</p>
+          <p className="mt-1 text-xs text-white/40">+ 1,000,000 people</p>
         </div>
 
-        <div className="flex flex-col gap-4 w-full max-h-[45vh] overflow-y-auto pr-1">
+        <div className="flex w-full flex-col gap-4">
           {TESTIMONIALS.map((t, i) => (
             <motion.div
               key={t.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.15 }}
+              transition={{
+                delay: i * 0.12,
+                duration: 0.4,
+                ease: [0.25, 0.1, 0.25, 1],
+              }}
+              className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm"
             >
-              <Card>
-                <div className="flex items-center justify-between mb-2">
-                  <div>
-                    <p className="font-semibold text-sm">{t.name}</p>
-                    {t.handle && (
-                      <p className="text-xs text-muted">{t.handle}</p>
-                    )}
-                  </div>
-                  <Stars count={t.rating} />
+              <div className="mb-2 flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-white">
+                    {t.name}
+                  </p>
+                  {t.handle && (
+                    <p className="text-xs text-white/40">{t.handle}</p>
+                  )}
                 </div>
-                <p className="text-sm text-muted leading-relaxed">
-                  &ldquo;{t.text}&rdquo;
-                </p>
-              </Card>
+                <Stars count={t.rating} />
+              </div>
+              <p className="text-sm leading-relaxed text-white/60">
+                &ldquo;{t.text}&rdquo;
+              </p>
             </motion.div>
           ))}
         </div>
